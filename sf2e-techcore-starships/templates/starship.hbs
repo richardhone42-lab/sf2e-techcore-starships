@@ -1,0 +1,87 @@
+<form class="techcore-form">
+  <header class="tc-header">
+    <div><div class="tc-kicker">STARFINDER SECOND EDITION · TECH CORE</div><h1><input class="tc-ship-name" data-actor-name value="{{actor.name}}" aria-label="Starship name"></h1><p>Level {{ship.level}} · {{ship.frame}} · Tactical starship</p></div>
+    <div class="tc-header-controls">{{#if canEdit}}<button type="button" data-action="save" class="tc-save"><i class="fas fa-save"></i> Save changes</button>{{else}}<span>Read-only · request Owner access to edit</span>{{/if}}</div>
+  </header>
+  <nav class="tc-tabs">
+    <button type="button" data-action="tab" data-tab="overview" class="{{#if isOverview}}active{{/if}}">Ship systems</button>
+    <button type="button" data-action="tab" data-tab="stations" class="{{#if isStations}}active{{/if}}">Battle stations</button>
+    <button type="button" data-action="tab" data-tab="builder" class="{{#if isBuilder}}active{{/if}}">Ship builder</button>
+    <button type="button" data-action="tab" data-tab="notes" class="{{#if isNotes}}active{{/if}}">Notes & bays</button>
+  </nav>
+  {{#if isOverview}}
+  <section class="tc-stat-grid">
+    <label class="tc-stat"><span>Hull Points</span><div><input type="number" min="0" data-field="hp" value="{{ship.hp}}"> <b>/</b> <input type="number" min="0" data-field="hpMax" value="{{ship.hpMax}}"></div></label>
+    <label class="tc-stat"><span>Shield Points</span><div><input type="number" min="0" data-field="sp" value="{{ship.sp}}"> <b>/</b> <input type="number" min="0" data-field="spMax" value="{{ship.spMax}}"></div></label>
+    <label class="tc-stat"><span>Armour Class</span><input type="number" data-field="ac" value="{{ship.ac}}"></label>
+    <label class="tc-stat"><span>Speed · zones</span><input type="number" min="0" data-field="speed" value="{{ship.speed}}"></label>
+    <label class="tc-stat"><span>Sensors · zones</span><input type="number" min="0" data-field="sensors" value="{{ship.sensors}}"></label>
+    <label class="tc-stat"><span>Current zone</span><input type="number" data-field="zone" value="{{ship.zone}}"></label>
+  </section>
+  <section class="tc-panel"><h2>Defences & navigation</h2>
+    <div class="tc-inline">
+      <label>Fortitude <input type="number" data-field="fort" value="{{ship.fort}}"></label>
+      <label>Reflex <input type="number" data-field="ref" value="{{ship.ref}}"></label>
+      <label>Will <input type="number" data-field="will" value="{{ship.will}}"></label>
+      <label>Heading <select data-field="heading"><option value="left" {{#if headingLeft}}selected{{/if}}>← Left</option><option value="right" {{#if headingRight}}selected{{/if}}>Right →</option></select></label>
+    </div>
+    <div class="tc-rolls"><button type="button" data-action="roll" data-formula="1d20+{{ship.fort}}" data-label="Fortitude save">Roll Fort</button><button type="button" data-action="roll" data-formula="1d20+{{ship.ref}}" data-label="Reflex save">Roll Ref</button><button type="button" data-action="roll" data-formula="1d20+{{ship.will}}" data-label="Will save">Roll Will</button></div>
+  </section>
+  <section class="tc-panel"><h2>Quick adjustments</h2><div class="tc-quick"><label>Amount <input name="quickAmount" type="number" min="1" value="5"></label><button type="button" data-action="damage">Apply incoming damage (SP → HP)</button><button type="button" data-action="repair" data-stat="sp">Restore SP</button><button type="button" data-action="repair" data-stat="hp">Repair HP</button></div><p class="tc-help">Damage here is a convenience calculator, not automatic rules adjudication. Confirm damage and effects before applying.</p></section>
+  <section class="tc-panel"><h2>Ship identification</h2><div class="tc-inline"><label>Frame <input data-field="frame" value="{{ship.frame}}"></label><label>Level <input type="number" min="0" data-field="level" value="{{ship.level}}"></label></div><label class="tc-wide">Conditions <input data-field="condition" value="{{ship.condition}}" placeholder="Off-kilter, malfunctioning station, etc."></label></section>
+  {{/if}}
+  {{#if isStations}}
+  <p class="tc-help">Station rolls below are damage or effect rolls only. Operators make their own skill checks and Strikes on their character sheets. Helming requires being at the station on the deck map.</p>
+  <section class="tc-stations">
+  {{#each stations}}
+    <details class="tc-station" open><summary><strong>{{name}}</strong><span>{{deck}} deck · {{upgrade}}</span></summary>
+      <div class="tc-station-body"><div class="tc-inline"><label>Operator <input data-station-id="{{id}}" data-station-field="operator" value="{{operator}}" placeholder="Crew member"></label></div><p class="tc-gear"><strong>Equipment:</strong> {{gear}}</p>
+      <div class="tc-action-list">{{#each actions}}<div class="tc-action"><div><strong>{{name}}</strong><span class="tc-cost">{{cost}}</span><p>{{description}}</p></div>{{#if roll}}<button type="button" data-action="roll" data-formula="{{roll}}" data-label="{{name}}">Roll {{roll}}</button>{{/if}}</div>{{/each}}</div>
+      <label class="tc-wide">Station notes <textarea data-station-id="{{id}}" data-station-field="notes" rows="2">{{notes}}</textarea></label></div>
+    </details>
+  {{/each}}
+  </section>
+  {{/if}}
+  {{#if isBuilder}}
+  <div class="tc-builder-only">
+    <section class="tc-panel"><h2>Frame & level</h2><p class="tc-help">Frame statistics from Tech Core pp. 197–199. Applying a frame recalculates base statistics and preserves HP/SP deficits; review bonuses from installed equipment separately.</p>
+    <div class="tc-inline"><label>Frame <select data-field="frame">{{#each frames}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>
+    <label>Level <input data-field="level" type="number" min="1" max="20" value="{{ship.level}}"></label>
+    <button type="button" data-action="applyFrame">Apply frame statistics</button></div></section>
+    <section class="tc-panel"><h2>Battle station construction</h2>
+    <p class="tc-help">Choose a station type, then select upgrades from its catalogue. Use Refresh choices after changing a station type or upgrade to show its permitted options and grades. Upgrade slot limits are calculated automatically from the Tech Core grade progression.</p>
+    {{#each stationBuildRows}}
+    <details class="tc-station" open><summary><strong>Station {{number}} · {{type}}</strong></summary><div class="tc-station-body">
+      <div class="tc-inline"><label>Station type <select data-build-type="{{index}}">{{#each types}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>
+      <label>Grade: <strong>{{grade}}</strong> · Upgrade slots: <strong>{{capacity}}</strong></label></div>
+      {{#if isGunnery}}<label>Starship weapons (Ctrl-click for multiple)
+        <select multiple size="6" data-weapon-select="{{index}}">{{#each weaponOptions}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>{{/if}}
+      {{#if isDrone}}<label>Drone loadout (Ctrl-click for multiple)
+        <select multiple size="3" data-drone-select="{{index}}">{{#each droneOptions}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>{{/if}}
+      {{#each upgrades}}<div class="tc-inline"><label>Upgrade {{number}} <select data-build-upgrade="{{../index}}" data-index="{{index}}">{{#each options}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>
+      {{#if custom}}<label>Custom name <input data-custom-name="{{../index}}" data-index="{{index}}" value="{{customName}}"></label><label>Slot cost <input type="number" min="0" data-custom-cost="{{../index}}" data-index="{{index}}" value="{{customCost}}"></label>{{/if}}
+      {{#if isGraded}}<label>Grade <select data-build-grade="{{../index}}" data-index="{{index}}"><option value="">Select grade</option>{{#each grades}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>{{/if}}</div>{{/each}}
+    </div></details>{{/each}}
+    <button type="button" data-action="refreshBuilder">Refresh station choices & warnings</button>
+    </section>
+    <section class="tc-panel"><h2>Expansion bays</h2><p class="tc-help">Four expansion bay slots. Comfortable crew quarters grant a fifth slot. Universal crew quarters, lounge and mess bay do not use slots. Basic passenger quarters also use no slot.</p>
+    <div class="tc-inline"><label>Crew quarters <select data-field="crewQuarters">{{#each crewQuartersOptions}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label><label>Passenger quarters <select data-field="passengerQuarters">{{#each passengerOptions}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label></div>
+    <p class="tc-help">If you change crew quarters to Comfortable, save and reopen this tab to display the fifth slot.</p>
+    <div class="tc-inline"><label>Escape pods <select data-field="escapePod">{{#each escapePodOptions}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label></div><div class="tc-bay-grid">{{#each bays}}<label>Bay {{index}} <select data-bay-index="{{index}}">{{#each options}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>{{/each}}</div>
+    <div class="tc-construction-review"><h3>Construction validation</h3>
+      {{#if hasWarnings}}<p class="tc-warning">{{constructionWarnings.length}} warning(s) — review before saving.</p>
+      {{#each constructionWarnings}}<p class="tc-warning"><strong>{{code}}</strong>: {{message}}</p>{{/each}}
+      {{else}}<p class="tc-ok">No blocking construction warnings.</p>{{/if}}
+      <label><input type="checkbox" data-gm-override {{#if overrideChecked}}checked{{/if}}> GM override: permit non-standard construction</label>
+      <label class="tc-wide">Override explanation <textarea data-field="overrideReason" rows="2" placeholder="Explain the house rule or unusual design">{{ship.overrideReason}}</textarea></label>
+      <p class="tc-help">Warnings include expansion bays and the currently catalogued station upgrades. Construction warnings are advisory when a GM override is recorded.</p>
+    </div>
+    <p class="tc-help">Prison and Luxury passenger quarters use one of the available slots. Choose the corresponding bay entry above; Basic passenger quarters do not.</p></section>
+  </div>
+  {{/if}}
+  {{#if isNotes}}
+    <section class="tc-panel"><h2>Ship log & status</h2><label class="tc-wide">Notes<textarea data-field="notes" rows="12">{{ship.notes}}</textarea></label></section>
+    <section class="tc-panel"><h2>Expansion bays</h2><label class="tc-wide">Bays<textarea data-field="bays" rows="5">{{ship.bays}}</textarea></label></section>
+  {{/if}}
+  <footer class="tc-footer"><button type="button" data-action="exportShip">Export JSON</button>{{#if canEdit}}<button type="button" data-action="importShip">Import JSON (GM)</button>{{/if}}<span>Stored on this Actor · SF2E Tech Core · Starship builder</span>{{#if canEdit}}<button type="button" data-action="save">Save changes</button>{{/if}}</footer>
+</form>

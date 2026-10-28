@@ -1,0 +1,28 @@
+{
+  "id": "sf2e-techcore-starships",
+  "title": "SF2E Tech Core Starship Builder",
+  "description": "SF2E Tech Core starship actor sheets and builder with frames, station upgrades, weapons, drones, expansion bays, escape pods, GM override and JSON import/export. Source-tested; live Foundry validation required.",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Custom module for First Light"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "sf2e",
+        "type": "system"
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/starship-sheet.mjs"
+  ],
+  "styles": [
+    "styles/starship.css"
+  ]
+}

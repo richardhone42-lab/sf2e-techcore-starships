@@ -1,0 +1,35 @@
+.sf2e-techcore-sheet{--tc-accent:#55c5d8;--tc-border:#345469;--tc-bg:#13202c;--tc-panel:#1c2e3c;--tc-text:#eaf2f6;color:var(--tc-text)}
+.sf2e-techcore-sheet .window-content{padding:0;overflow:auto;background:var(--tc-bg);color:var(--tc-text)}
+.sf2e-techcore-sheet .techcore-form{padding:16px;min-height:100%;font:14px/1.4 sans-serif}
+.sf2e-techcore-sheet .tc-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px 18px;border-bottom:2px solid var(--tc-accent)}
+.sf2e-techcore-sheet .tc-kicker{letter-spacing:1.7px;font-size:10px;color:var(--tc-accent);font-weight:700}
+.sf2e-techcore-sheet h1{margin:4px 0;color:#fff;font-size:29px;border:0}.sf2e-techcore-sheet h2{font-size:16px;margin:0 0 12px;color:#bdeef5;border:0}
+.sf2e-techcore-sheet p{margin:4px 0 10px}.sf2e-techcore-sheet .tc-header p,.sf2e-techcore-sheet .tc-help{color:#b1c7d3;font-size:12px}
+.sf2e-techcore-sheet button{width:auto;min-height:30px;padding:5px 11px;border:1px solid #4e7c8f;border-radius:5px;background:#244455;color:#effaff;cursor:pointer}
+.sf2e-techcore-sheet button:hover{background:#31687c}.sf2e-techcore-sheet button.tc-save{background:#166c7e;font-weight:700}
+.sf2e-techcore-sheet .tc-tabs{display:flex;gap:8px;padding:12px 14px}.sf2e-techcore-sheet .tc-tabs button.active{border-color:#85ebfb;background:#20677a}
+.sf2e-techcore-sheet .tc-stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:6px 14px 14px}
+.sf2e-techcore-sheet .tc-stat,.sf2e-techcore-sheet .tc-panel,.sf2e-techcore-sheet .tc-station{background:var(--tc-panel);border:1px solid var(--tc-border);border-radius:8px;padding:13px}
+.sf2e-techcore-sheet .tc-stat>span{display:block;color:#9cc1d0;text-transform:uppercase;font-size:11px;letter-spacing:.8px;margin-bottom:5px}
+.sf2e-techcore-sheet .tc-stat>input,.sf2e-techcore-sheet .tc-stat>div input{font-size:23px;font-weight:700;width:85px;text-align:center}
+.sf2e-techcore-sheet .tc-stat>div{display:flex;align-items:center;gap:8px}
+.sf2e-techcore-sheet input,.sf2e-techcore-sheet select,.sf2e-techcore-sheet textarea{box-sizing:border-box;max-width:100%;background:#0f1d29!important;color:#f0f7fa!important;border:1px solid #466b7e!important;border-radius:4px;padding:5px!important}
+.sf2e-techcore-sheet .tc-panel{margin:12px 14px}.sf2e-techcore-sheet .tc-inline,.sf2e-techcore-sheet .tc-quick,.sf2e-techcore-sheet .tc-rolls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:10px 0}
+.sf2e-techcore-sheet label{display:block}.sf2e-techcore-sheet label input,.sf2e-techcore-sheet label select{margin-left:5px}
+.sf2e-techcore-sheet .tc-inline input{width:110px}.sf2e-techcore-sheet .tc-wide{margin:10px 0}.sf2e-techcore-sheet .tc-wide input,.sf2e-techcore-sheet .tc-wide textarea{display:block;width:100%;margin:6px 0 0}
+.sf2e-techcore-sheet .tc-quick input{width:75px}.sf2e-techcore-sheet .tc-stations{margin:10px 14px}.sf2e-techcore-sheet .tc-station{margin:0 0 10px;padding:0}
+.sf2e-techcore-sheet .tc-station summary{cursor:pointer;padding:13px;display:flex;justify-content:space-between;gap:12px}.sf2e-techcore-sheet .tc-station summary span{color:#b2c9d5}
+.sf2e-techcore-sheet .tc-station-body{padding:4px 13px 13px}.sf2e-techcore-sheet .tc-gear{font-size:12px;color:#bbd3de}
+.sf2e-techcore-sheet .tc-action{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #345469;padding:9px 0}
+.sf2e-techcore-sheet .tc-action p{font-size:12px;color:#bfd1d9;margin:3px 0}.sf2e-techcore-sheet .tc-cost{font-size:11px;border:1px solid #64869a;border-radius:3px;padding:2px 6px;margin-left:8px}
+.sf2e-techcore-sheet .tc-action button{white-space:nowrap}.sf2e-techcore-sheet .tc-footer{display:flex;align-items:center;justify-content:space-between;padding:15px;color:#9ebdca;font-size:11px}
+@media(max-width:700px){.sf2e-techcore-sheet .tc-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sf2e-techcore-sheet .tc-action{align-items:flex-start;flex-direction:column}}
+
+.sf2e-techcore-sheet .tc-builder-station {padding:12px;margin:10px 0;border:1px solid var(--color-border-light-primary);border-radius:6px;}
+.sf2e-techcore-sheet .tc-bay-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.sf2e-techcore-sheet .tc-bay-grid label {display:flex;flex-direction:column;gap:4px;}
+.tc-construction-review{margin-top:12px;padding:10px;border:1px solid var(--color-border-light-primary,#777);border-radius:6px}
+.tc-warning{color:#b45d18;font-weight:600}.tc-ok{color:#247d48}
+
+.sf2e-techcore-sheet .tc-ship-name {font-size:1.35em;font-weight:700;max-width:100%;background:transparent;border:0;border-bottom:1px solid var(--color-border-light-primary);color:inherit;}
+.sf2e-techcore-sheet select[multiple]{min-height:8em;min-width:220px;}
